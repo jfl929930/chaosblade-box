@@ -29,6 +29,7 @@
                     and b.result_status = #{lastTaskResult}
                 </when>
             </choose>
+            and a.is_delete='0'
         </where>
         order by a.gmt_modified desc
     </select>
@@ -38,7 +39,7 @@
         from t_chaos_experiment a
                  left join t_chaos_experiment_task b
                            on a.task_id = b.id
-        where b.id is null;
+        where b.id is null and a.is_delete='0';
     </select>
 
     <select id="selectSuccessCount" resultType="integer">
@@ -46,7 +47,7 @@
         from t_chaos_experiment a
                  inner join t_chaos_experiment_task b
                            on a.task_id = b.id
-        where b.result_status = 0
+        where b.result_status = 0 and a.is_delete='0'
     </select>
 
     <select id="selectFailedCount" resultType="integer">
@@ -54,7 +55,7 @@
         from t_chaos_experiment a
                  inner join t_chaos_experiment_task b
                             on a.task_id = b.id
-        where b.result_status = 1
+        where b.result_status = 1 and a.is_delete='0'
     </select>
 
     <select id="selectRunningCount" resultType="integer">
@@ -63,7 +64,7 @@
         from t_chaos_experiment a
                  inner join t_chaos_experiment_task b
                             on a.task_id = b.id
-        where b.run_status < 4
+        where b.run_status < 4 and a.is_delete='0'
         ]]>
     </select>
 
@@ -72,7 +73,12 @@
         from t_chaos_experiment a
                  inner join t_chaos_experiment_task b
                             on a.task_id = b.id
-        where b.run_status = 4
+        where b.run_status = 4 and a.is_delete='0'
     </select>
+
+    <update id="updateIsDelete" parameterType="com.alibaba.chaosblade.box.dao.model.ExperimentDO">
+        update t_chaos_experiment set is_delete=#{isDelete} where id=#{id}
+
+    </update>
 
 </mapper>

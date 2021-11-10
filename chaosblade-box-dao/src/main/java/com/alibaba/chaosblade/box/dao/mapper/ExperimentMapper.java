@@ -39,5 +39,7 @@ public interface ExperimentMapper extends BaseMapper<ExperimentDO> {
     Integer selectRunningCount();
 
     Integer selectFinishedCount();
+
+    Integer updateIsDelete(ExperimentDO experimentDO);
 }
 

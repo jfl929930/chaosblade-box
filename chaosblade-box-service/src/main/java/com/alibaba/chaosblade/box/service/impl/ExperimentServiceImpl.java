@@ -471,6 +471,7 @@ public class ExperimentServiceImpl implements ExperimentService {
                     .name(experimentRequest.getExperimentName())
                     .lastTaskStatus(experimentRequest.getLastTaskStatus())
                     .lastTaskResult(experimentRequest.getLastTaskResult())
+                    .isDelete("0")
                     .build());
         }
 
@@ -535,5 +536,13 @@ public class ExperimentServiceImpl implements ExperimentService {
                 .running(experimentMapper.selectRunningCount())
                 .finished(experimentMapper.selectFinishedCount())
                 .build();
+    }
+
+    @Override
+    public boolean deleteExperimentById(ExperimentRequest experimentRequest) {
+        ExperimentDO experimentDO = new ExperimentDO();
+        experimentDO.setIsDelete("1");
+        experimentDO.setId(experimentRequest.getExperimentId());
+        return experimentMapper.updateIsDelete(experimentDO) == 1 ? true : false;
     }
 }

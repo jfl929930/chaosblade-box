@@ -146,7 +146,8 @@ create table if not exists t_chaos_experiment
     metric       longtext                    null comment 'metric config',
     run_model    varchar(16) default 'PHASE' not null comment 'run model，PHASE/SEQUENCE',
     duration     int unsigned                null comment 'duration',
-    dimension    varchar(64)                 null comment 'dimension, host, k8s'
+    dimension    varchar(64)                 null comment 'dimension, host, k8s',
+    is_delete    varchar(1) default '0'      not null comment 'is delete 0:no/1:yes'
 )
     ENGINE = InnoDB
     comment 'experiment'

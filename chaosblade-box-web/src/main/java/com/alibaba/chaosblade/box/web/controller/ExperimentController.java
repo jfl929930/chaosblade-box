@@ -87,4 +87,11 @@ public class ExperimentController {
     public ExperimentStatisticsResponse getExperimentTotalStatistics() {
         return experimentService.getExperimentTotalStatistics();
     }
+
+    @RequestMapping("/DeleteExperimentById")
+    public Boolean deleteExperimentById(@RequestBody ExperimentRequest experimentRequest){
+        Preconditions.checkNotNull(experimentRequest.getExperimentId(), ID_IS_NULL);
+        return experimentService.deleteExperimentById(experimentRequest);
+
+    }
 }

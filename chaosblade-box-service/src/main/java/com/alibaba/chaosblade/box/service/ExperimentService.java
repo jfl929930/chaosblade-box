@@ -76,4 +76,11 @@ public interface ExperimentService {
      * @return
      */
     ExperimentStatisticsResponse getExperimentTotalStatistics();
+
+    /**
+     *
+     * @param experimentRequest
+     * @return
+     */
+    boolean deleteExperimentById(ExperimentRequest experimentRequest);
 }
